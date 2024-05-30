@@ -44,7 +44,7 @@ app.get('/api/get', (req, res) => {
 
 });
 
-app.post('/api/ip', (req, res) => {
+app.get('/api/ip', (req, res) => {
  // const clientIP = req.connection.remoteAddress;
  //  const referringWebsite = req.get('Referer') || 'Direct API Call';
   
@@ -68,7 +68,12 @@ app.post('/api/ip', (req, res) => {
       console.error(err);
       res.status(500).send('Error resolving IP address of referring website');
     } else {
-      res.json(`${clientIP},${referringWebsite},${address}`);
+      const result = {
+        clientIP: clientIP,
+        referringWebsite: referringWebsite,
+        referringWebsiteIP: address
+      };
+      res.json(result);
     }
   });
 });
