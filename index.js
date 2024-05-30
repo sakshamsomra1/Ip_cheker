@@ -18,6 +18,7 @@ const emailValidator = require('email-validator');
 
 const isValidEmail = emailValidator.validate('example@email.com');
 
+app.set('trust proxy', true);
 
 
 app.use(bodyParser.json());
@@ -33,12 +34,6 @@ app.use(cors({
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
-
-
-
-
-
-
 
 
 
