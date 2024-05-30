@@ -50,10 +50,16 @@ app.post('/api/ip', (req, res) => {
   
  //  res.send(`The client's IP address is: ${clientIP}. You are accessing the API from: ${referringWebsite}`);
 
-  const ip = req.ip;
+  // const ip = req.ip;
+  // const referringWebsite = req.get('Referer') || 'Direct API Call';
+  
+  // res.send(`Your IP address is: ${ip}. You are accessing the API from: ${referringWebsite}`);
+
+
+  const clientIP = req.header('X-Forwarded-For') || req.connection.remoteAddress;
   const referringWebsite = req.get('Referer') || 'Direct API Call';
   
-  res.send(`Your IP address is: ${ip}. You are accessing the API from: ${referringWebsite}`);
+  res.send(`The client's IP address is: ${clientIP}. They are accessing the API from: ${referringWebsite}`);
 });
 
 
