@@ -44,6 +44,13 @@ app.get('/api/get', (req, res) => {
 
 });
 
+app.post('/api/ip', (req, res) => {
+  const ip = req.ip;
+  const referringWebsite = req.get('Referer') || 'Direct API Call';
+  
+  res.send(`Your IP address is: ${ip}. You are accessing the API from: ${referringWebsite}`);
+});
+
 
 
 app.get('/api', (req, res) => {
