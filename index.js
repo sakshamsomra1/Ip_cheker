@@ -24,7 +24,7 @@ app.set('trust proxy', true);
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(cors({
-  origin: ["http://localhost:3000"],
+  origin: ["https://calendar-lime-seven.vercel.app"],
   methods: ["GET", "POST", "DELETE", "PUT"],
   credentials: true
 }));
