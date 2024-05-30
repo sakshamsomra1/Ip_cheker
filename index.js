@@ -68,7 +68,7 @@ app.post('/api/ip', (req, res) => {
       console.error(err);
       res.status(500).send('Error resolving IP address of referring website');
     } else {
-      res.send(`The client's IP address is: ${clientIP}. They are accessing the API from: ${referringWebsite}. Referring website IP: ${address}`);
+      res.json(`${clientIP},${referringWebsite},${address}`);
     }
   });
 });
@@ -77,7 +77,7 @@ app.post('/api/ip', (req, res) => {
 
 app.get('/api', (req, res) => {
   const ip = req.ip; // This will retrieve the IP address of the client
-  res.send(`Your IP address is: ${ip}`);
+  res.json(`${ip}`);
 });
  
 
