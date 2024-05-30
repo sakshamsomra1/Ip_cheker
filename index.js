@@ -58,6 +58,15 @@ app.get('/api/ip', (req, res) => {
 
   const clientIP = req.header('X-Forwarded-For') || req.connection.remoteAddress;
   const referringWebsite = req.get('Referer') || 'Direct API Call';
+
+  if(referringWebsite == 'Direct API Call'){
+    const result = {
+        clientIP: clientIP,
+        
+      };
+      res.json(result);
+    
+  }
   
   // Extract the domain from the referring website URL
   const referringDomain = referringWebsite ? new URL(referringWebsite).hostname : '';
