@@ -13,7 +13,7 @@ const multer = require("multer");
 const cookieParser = require('cookie-parser');
 const MySQLStore = require('express-mysql-session')(session);
 // app.use('/Images', express.static('Images'));
-
+const dns = require('dns');
 const emailValidator = require('email-validator');
 
 const isValidEmail = emailValidator.validate('example@email.com');
@@ -59,7 +59,18 @@ app.post('/api/ip', (req, res) => {
   const clientIP = req.header('X-Forwarded-For') || req.connection.remoteAddress;
   const referringWebsite = req.get('Referer') || 'Direct API Call';
   
-  res.send(`The client's IP address is: ${clientIP}. They are accessing the API from: ${referringWebsite}`);
+  // Extract the domain from the referring website URL
+  const referringDomain = referringWebsite ? new URL(referringWebsite).hostname : '';
+
+  // Resolve the IP address of the referring domain
+  dns.lookup(referringDomain, (err, address) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error resolving IP address of referring website');
+    } else {
+      res.send(`The client's IP address is: ${clientIP}. They are accessing the API from: ${referringWebsite}. Referring website IP: ${address}`);
+    }
+  });
 });
 
 
