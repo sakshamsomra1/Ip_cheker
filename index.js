@@ -45,10 +45,15 @@ app.get('/api/get', (req, res) => {
 });
 
 app.post('/api/ip', (req, res) => {
- const clientIP = req.connection.remoteAddress;
+ // const clientIP = req.connection.remoteAddress;
+ //  const referringWebsite = req.get('Referer') || 'Direct API Call';
+  
+ //  res.send(`The client's IP address is: ${clientIP}. You are accessing the API from: ${referringWebsite}`);
+
+  const ip = req.ip;
   const referringWebsite = req.get('Referer') || 'Direct API Call';
   
-  res.send(`The client's IP address is: ${clientIP}. You are accessing the API from: ${referringWebsite}`);
+  res.send(`Your IP address is: ${ip}. You are accessing the API from: ${referringWebsite}`);
 });
 
 
